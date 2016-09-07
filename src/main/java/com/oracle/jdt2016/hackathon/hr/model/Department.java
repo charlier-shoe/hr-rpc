@@ -48,9 +48,9 @@ public class Department implements Serializable {
     private Employee employee;
 
     //bi-directional many-to-one association to Employee
-    @OneToMany(mappedBy="department")
-    @JsonManagedReference
-    private List<Employee> employees;
+//    @OneToMany(mappedBy="department")
+//    @JsonManagedReference
+//    private List<Employee> employees;
 
     //bi-directional many-to-one association to JobHistory
     @OneToMany(mappedBy="department")
@@ -92,27 +92,27 @@ public class Department implements Serializable {
         this.employee = employee;
     }
 
-    public List<Employee> getEmployees() {
-        return this.employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
-
-    public Employee addEmployee(Employee employee) {
-        getEmployees().add(employee);
-        employee.setDepartment(this);
-
-        return employee;
-    }
-
-    public Employee removeEmployee(Employee employee) {
-        getEmployees().remove(employee);
-        employee.setDepartment(null);
-
-        return employee;
-    }
+//    public List<Employee> getEmployees() {
+//        return this.employees;
+//    }
+//
+//    public void setEmployees(List<Employee> employees) {
+//        this.employees = employees;
+//    }
+//
+//    public Employee addEmployee(Employee employee) {
+//        getEmployees().add(employee);
+//        employee.setDepartment(this);
+//
+//        return employee;
+//    }
+//
+//    public Employee removeEmployee(Employee employee) {
+//        getEmployees().remove(employee);
+//        employee.setDepartment(null);
+//
+//        return employee;
+//    }
 
     public List<JobHistory> getJobHistories() {
         return this.jobHistories;

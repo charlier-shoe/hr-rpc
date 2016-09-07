@@ -41,14 +41,14 @@ public class Job implements Serializable {
     private BigDecimal minSalary;
 
     //bi-directional many-to-one association to Employee
-    @OneToMany(mappedBy="job")
-    @JsonBackReference
-    private List<Employee> employees;
+//    @OneToMany(mappedBy="job")
+//    @JsonBackReference
+//    private List<Employee> employees;
 
     //bi-directional many-to-one association to JobHistory
-    @OneToMany(mappedBy="job")
-    @JsonBackReference
-    private List<JobHistory> jobHistories;
+//    @OneToMany(mappedBy="job")
+//    @JsonBackReference
+//    private List<JobHistory> jobHistories;
 
     public Job() {
     }
@@ -85,48 +85,48 @@ public class Job implements Serializable {
         this.minSalary = minSalary;
     }
 
-    public List<Employee> getEmployees() {
-        return this.employees;
-    }
+//    public List<Employee> getEmployees() {
+//        return this.employees;
+//    }
+//
+//    public void setEmployees(List<Employee> employees) {
+//        this.employees = employees;
+//    }
+//
+//    public Employee addEmployee(Employee employee) {
+//        getEmployees().add(employee);
+//        employee.setJob(this);
+//
+//        return employee;
+//    }
+//
+//    public Employee removeEmployee(Employee employee) {
+//        getEmployees().remove(employee);
+//        employee.setJob(null);
+//
+//        return employee;
+//    }
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
-
-    public Employee addEmployee(Employee employee) {
-        getEmployees().add(employee);
-        employee.setJob(this);
-
-        return employee;
-    }
-
-    public Employee removeEmployee(Employee employee) {
-        getEmployees().remove(employee);
-        employee.setJob(null);
-
-        return employee;
-    }
-
-    public List<JobHistory> getJobHistories() {
-        return this.jobHistories;
-    }
-
-    public void setJobHistories(List<JobHistory> jobHistories) {
-        this.jobHistories = jobHistories;
-    }
-
-    public JobHistory addJobHistory(JobHistory jobHistory) {
-        getJobHistories().add(jobHistory);
-        jobHistory.setJob(this);
-
-        return jobHistory;
-    }
-
-    public JobHistory removeJobHistory(JobHistory jobHistory) {
-        getJobHistories().remove(jobHistory);
-        jobHistory.setJob(null);
-
-        return jobHistory;
-    }
+//    public List<JobHistory> getJobHistories() {
+//        return this.jobHistories;
+//    }
+//
+//    public void setJobHistories(List<JobHistory> jobHistories) {
+//        this.jobHistories = jobHistories;
+//    }
+//
+//    public JobHistory addJobHistory(JobHistory jobHistory) {
+//        getJobHistories().add(jobHistory);
+//        jobHistory.setJob(this);
+//
+//        return jobHistory;
+//    }
+//
+//    public JobHistory removeJobHistory(JobHistory jobHistory) {
+//        getJobHistories().remove(jobHistory);
+//        jobHistory.setJob(null);
+//
+//        return jobHistory;
+//    }
 
 }

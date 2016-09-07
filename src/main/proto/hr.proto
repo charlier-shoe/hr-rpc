@@ -16,5 +16,23 @@ service Hr {
 
 // The response message containing the greetings
 message EmployeesReply {
-    string message = 1;
+    repeated Employee employee = 1;
 }
+
+message Employee {
+    float commissionPct = 1;
+    int64 departmentId = 2;
+    string email = 3;
+    int64 employeeId = 4;
+    string firstName = 5;
+    int64 hireDate = 6;
+    string jobId = 7;
+    string lastName = 8;
+    int64 managerId = 9;
+    string phoneNumber = 10;
+    float salary = 11;
+}
+
+//message Employee {
+    //string email = 1;
+//}

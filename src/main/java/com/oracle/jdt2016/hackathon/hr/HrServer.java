@@ -75,13 +75,25 @@ public class HrServer {
             List<Employee> entities =
                     em.createNamedQuery("Employee.findAll").getResultList();
             em.close();
-            // TODO: まだ仮実装
-            for (Employee employee : entities) {
-                System.out.println(employee.getEmail());
+            EmployeesReply.Builder replyBuilder = EmployeesReply.newBuilder();
+            for (Employee entity : entities) {
+                com.oracle.jdt2016.hackathon.hr.Employee employee =
+                        com.oracle.jdt2016.hackathon.hr.Employee.newBuilder()
+                        .setCommissionPct(entity.getCommissionPct())
+                        .setDepartmentId(entity.getDepartmentId())
+                        .setEmail(entity.getEmail())
+                        .setEmployeeId(entity.getEmployeeId())
+                        .setFirstName(entity.getFirstName())
+                        .setHireDate(entity.getHireDate().getTime())
+                        .setJobId(entity.getJobId())
+                        .setLastName(entity.getLastName())
+                        .setManagerId(entity.getManagerId())
+                        .setPhoneNumber(entity.getPhoneNumber())
+                        .setSalary(entity.getSalary())
+                        .build();
+                replyBuilder.addEmployee(employee);
             }
-            EmployeesReply reply =
-                    EmployeesReply.newBuilder().setMessage("Hello from HR !").build();
-            responseObserver.onNext(reply);
+            responseObserver.onNext(replyBuilder.build());
             responseObserver.onCompleted();
         }
 

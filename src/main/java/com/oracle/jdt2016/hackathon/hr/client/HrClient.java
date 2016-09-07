@@ -17,6 +17,9 @@ import com.oracle.jdt2016.hackathon.hr.HrServer;
  * A simple client that requests a greeting from the {@link HrServer}.
  */
 public class HrClient {
+
+    private static final int TRIAL = 1000;
+
     private static final Logger logger = Logger.getLogger(HrClient.class.getName());
 
     private final ManagedChannel channel;
@@ -37,17 +40,21 @@ public class HrClient {
     }
 
     /** Say hello to server. */
-    public void greet(String name) {
-        logger.info("Will try to greet " + name + " ...");
-        Empty request = Empty.newBuilder().build();
+    public void getEmployees() {
         EmployeesReply response;
-        try {
-            response = blockingStub.employees(request);
-        } catch (StatusRuntimeException e) {
-            logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
-            return;
+        long begin = System.currentTimeMillis();
+        for (int i = 0; i < TRIAL; i++) {
+            try {
+                response = blockingStub.employees(Empty.newBuilder().build());
+            } catch (StatusRuntimeException e) {
+                logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
+                return;
+            }
+            logger.info("Employees: " + response.getEmployeeCount());
+//            System.out.println("Employees: " + response.getEmployeeCount());
         }
-        logger.info("Greting: " + response.getMessage());
+        long end = System.currentTimeMillis();
+        System.out.println("ELAPSED: " + (end - begin));
     }
 
     /**
@@ -57,12 +64,7 @@ public class HrClient {
     public static void main(String[] args) throws Exception {
         HrClient client = new HrClient("localhost", 50051);
         try {
-            /* Access a service running on the local machine on port 50051 */
-            String user = "world";
-            if (args.length > 0) {
-                user = args[0]; /* Use the arg as the name to greet if provided */
-            }
-            client.greet(user);
+            client.getEmployees();
         } finally {
             client.shutdown();
         }
