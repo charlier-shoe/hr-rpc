@@ -3,38 +3,73 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.0'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'spring-boot'
+apply plugin: 'com.google.protobuf'
 
 jar {
     baseName = 'hr'
     version =  '0.1'
+    manifest {
+        attributes (
+            'Main-Class': 'com.oracle.jdt2016.hackathon.hr.HrServer'
+        )
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
 }
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
+def encoding = { it.encoding = "UTF-8" }
+tasks.withType(AbstractCompile) each { encoding it.options }
+tasks.withType(GroovyCompile) each { encoding it.groovyOptions }
+
+def grpcVersion = '1.0.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    // tag::jetty[]
-    compile("org.springframework.boot:spring-boot-starter-web")
-    // end::jetty[]
-    // tag::actuator[]
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    // end::actuator[]
-    testCompile("junit:junit")
-    // https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa
     compile group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.jpa', version: '2.6.2'
-    // https://mvnrepository.com/artifact/org.apache.derby/derby
-    compile group: 'org.apache.derby', name: 'derby'
+    compile group: 'org.apache.derby', name: 'derby',  version: '10.12.1.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.2'
+    compile "io.grpc:grpc-netty:${grpcVersion}"
+    compile "io.grpc:grpc-protobuf:${grpcVersion}"
+    compile "io.grpc:grpc-stub:${grpcVersion}"
+}
+
+protobuf {
+    protoc {
+        // The version of protoc must match protobuf-java. If you don't depend on
+        // protobuf-java directly, you will be transitively depending on the
+        // protobuf-java version that grpc depends on.
+        artifact = 'com.google.protobuf:protoc:3.0.0'
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {
+                // To generate deprecated interfaces and static bindService method,
+                // turn the enable_deprecated option to true below:
+                option 'enable_deprecated=false'
+            }
+        }
+    }
 }
 

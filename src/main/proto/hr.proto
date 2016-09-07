@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.oracle.jdt2016.hackathon.hr";
+option java_outer_classname = "HrProto";
+option objc_class_prefix = "HR";
+
+import "google/protobuf/empty.proto";
+
+package hr;
+
+service Hr {
+    // Get employees
+    rpc Employees(google.protobuf.Empty) returns (EmployeesReply) {}
+}
+
+// The response message containing the greetings
+message EmployeesReply {
+    string message = 1;
+}
