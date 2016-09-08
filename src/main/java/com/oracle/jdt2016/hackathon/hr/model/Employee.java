@@ -4,24 +4,15 @@
 package com.oracle.jdt2016.hackathon.hr.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 
 /**
  * The persistent class for the EMPLOYEES database table.
@@ -59,44 +50,14 @@ public class Employee implements Serializable {
     @Column(name="SALARY")
     private float salary;
 
-//    //bi-directional many-to-one association to Department
-//    @OneToMany(mappedBy="employee")
-//    @JsonBackReference
-//    private List<Department> departments;
-
-    //bi-directional many-to-one association to Department
-//    @ManyToOne
-//    @JoinColumn(name="DEPARTMENT_ID")
-//    @JsonBackReference
-//    private Department department;
     @Column(name="DEPARTMENT_ID")
     private long departmentId;
 
-    //bi-directional many-to-one association to Job
-//    @ManyToOne
-//    @JoinColumn(name="JOB_ID")
-//    @JsonManagedReference
-//    private Job job;
     @Column(name="JOB_ID")
     private String jobId;
 
-    //bi-directional many-to-one association to Employee
-//    @ManyToOne
-//    @JoinColumn(name="MANAGER_ID")
-//    @JsonManagedReference
-//    private Employee employee;
     @Column(name="MANAGER_ID")
     private long managerId;
-
-//    //bi-directional many-to-one association to Employee
-//    @OneToMany(mappedBy="employee")
-//    @JsonBackReference
-//    private List<Employee> employees;
-
-    //bi-directional many-to-one association to JobHistory
-//    @OneToMany(mappedBy="employee")
-//    @JsonManagedReference
-//    private List<JobHistory> jobHistories;
 
     public Employee() {
     }
@@ -165,28 +126,6 @@ public class Employee implements Serializable {
         this.salary = salary;
     }
 
-//    public List<Department> getDepartments() {
-//        return this.departments;
-//    }
-//
-//    public void setDepartments(List<Department> departments) {
-//        this.departments = departments;
-//    }
-//
-//    public Department addDepartment(Department department) {
-//        getDepartments().add(department);
-//        department.setEmployee(this);
-//
-//        return department;
-//    }
-//
-//    public Department removeDepartment(Department department) {
-//        getDepartments().remove(department);
-//        department.setEmployee(null);
-//
-//        return department;
-//    }
-
     public long getDepartmentId() {
         return this.departmentId;
     }
@@ -210,49 +149,5 @@ public class Employee implements Serializable {
     public void setEmployee(long managerId) {
         this.managerId = managerId;
     }
-
-//    public List<Employee> getEmployees() {
-//        return this.employees;
-//    }
-//
-//    public void setEmployees(List<Employee> employees) {
-//        this.employees = employees;
-//    }
-//
-//    public Employee addEmployee(Employee employee) {
-//        getEmployees().add(employee);
-//        employee.setEmployee(this);
-//
-//        return employee;
-//    }
-//
-//    public Employee removeEmployee(Employee employee) {
-//        getEmployees().remove(employee);
-//        employee.setEmployee(null);
-//
-//        return employee;
-//    }
-
-//    public List<JobHistory> getJobHistories() {
-//        return this.jobHistories;
-//    }
-//
-//    public void setJobHistories(List<JobHistory> jobHistories) {
-//        this.jobHistories = jobHistories;
-//    }
-
-//    public JobHistory addJobHistory(JobHistory jobHistory) {
-//        getJobHistories().add(jobHistory);
-//        jobHistory.setEmployee(this);
-//
-//        return jobHistory;
-//    }
-//
-//    public JobHistory removeJobHistory(JobHistory jobHistory) {
-//        getJobHistories().remove(jobHistory);
-//        jobHistory.setEmployee(null);
-//
-//        return jobHistory;
-//    }
 
 }

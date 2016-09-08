@@ -26,7 +26,7 @@ public class HrServer {
 
     private void start() throws IOException {
         server = ServerBuilder.forPort(port)
-          .addService(new GreeterImpl())
+          .addService(new HrImpl())
           .build()
         .  start();
         logger.info("Server started, listening on " + port);
@@ -66,7 +66,7 @@ public class HrServer {
         server.blockUntilShutdown();
     }
 
-    private class GreeterImpl extends HrGrpc.HrImplBase {
+    private class HrImpl extends HrGrpc.HrImplBase {
         @Override
         public void employees(
                 Empty request, StreamObserver<EmployeesReply> responseObserver) {

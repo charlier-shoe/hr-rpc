@@ -1,4 +1,4 @@
-package com.oracle.jdt2016.hackathon.hr.client;
+package com.oracle.jdt2016.hackathon.hr;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
